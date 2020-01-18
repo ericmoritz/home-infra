@@ -1,0 +1,26 @@
+{
+  "dependencies": [
+    {
+      "name": "ksonnet-util",
+      "source": {
+        "git": {
+          "remote": "https://github.com/grafana/jsonnet-libs",
+          "subdir": "ksonnet-util"
+        }
+      },
+      "version": "76e8244308fa6f9d2c5cf6b393314a0aba1fd902",
+      "sum": "sl403SzeKYoGRUK9wRsTohmtCZeGuDcQ4BDE43BZNhw="
+    },
+    {
+      "name": "ksonnet.beta.4",
+      "source": {
+        "git": {
+          "remote": "https://github.com/ksonnet/ksonnet-lib",
+          "subdir": "ksonnet.beta.4"
+        }
+      },
+      "version": "0d2f82676817bbf9e4acf6495b2090205f323b9f",
+      "sum": "ur22hPQq0JAPBxm8hNMcwjumj4MkozDwOKiGZvVMYh4="
+    }
+  ]
+}
