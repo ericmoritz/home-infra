@@ -47,6 +47,8 @@
         )
               IN NS @
               IN A  192.168.1.3
+        majortom IN CNAME tom
+        tom IN A 192.168.1.12
         * 3600 IN CNAME home.
       |||,
       "Corefile": |||
