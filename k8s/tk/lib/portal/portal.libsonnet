@@ -25,17 +25,44 @@ local k = import 'k.libsonnet';
   local ingressTls = ingress.mixin.spec.tlsType,
   local ingressRule = ingress.mixin.spec.rulesType,
   local httpIngressPath = ingressRule.mixin.http.pathsType,
+  local pvc = k.core.v1.persistentVolumeClaim,
 
   portal: {
     deployment:
       deployment.new(c.name, replicas=1,
         containers=[
           container.new("portal", $._images.portal.heimdall)
+          + container.withEnvMap({
+            "PUID": "1032",
+            "PGID": "100",
+            "TZ": "America/New_York",
+          })
+          + container.withVolumeMounts([
+            {mountPath: "/config", name: c.name},
+
+          ])
           + container.withPorts([
             containerPort.new("http", c.port),
           ]),
         ])
+    + deployment.mixin.spec.template.spec.withVolumes([
+      {
+        name: c.name,
+        persistentVolumeClaim: {
+           claimName: c.name,
+        }
+      },
+    ])
+    + $.util.emptyVolumeMount("logs", "/logs")
     , service: $.util.serviceFor(self.deployment)
+
+    , pvc:
+      pvc.new()
+      + pvc.mixin.metadata.withName(c.name)
+      + pvc.mixin.spec.withAccessModes("ReadWriteOnce")
+      + pvc.mixin.spec.resources.withRequests({"storage": "1Gi"})
+      + pvc.mixin.spec.withStorageClassName("slow")
+
     , ingress:
       ingress.new() +
       ingress.mixin.metadata.withName(c.name) +
