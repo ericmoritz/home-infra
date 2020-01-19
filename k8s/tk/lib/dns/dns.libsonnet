@@ -38,14 +38,14 @@
     , conf: configMap.new(c.name)
     + configMap.withData({
       "home": |||
-        @ IN SOA home. admin.home. (
+        @ IN SOA @ admin.home. (
                  2018110201  ;Serial
                  3600        ;Refresh
                  1800        ;Retry
                  604800      ;Expire
                  86400       ;Minimum TTL
         )
-              IN NS home
+              IN NS @
               IN A  192.168.1.3
         * 3600 IN CNAME home.
       |||,
