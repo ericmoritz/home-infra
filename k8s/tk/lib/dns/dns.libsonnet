@@ -47,7 +47,10 @@
         )
               IN NS @
               IN A  192.168.1.3
-        * 3600 IN CNAME home.
+
+        * 3600 IN CNAME @
+        k8s-master IN CNAME @
+
         ds IN A 192.168.1.2
 
         majortom IN CNAME tom
