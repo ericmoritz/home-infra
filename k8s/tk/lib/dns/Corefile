@@ -1,0 +1,14 @@
+home:53 {
+    file /etc/coredns/home
+}
+.:53 {
+    errors
+    health
+    ready
+    prometheus :9153
+    cache 30
+    loop
+    reload
+    loadbalance
+    forward . 8.8.8.8
+}

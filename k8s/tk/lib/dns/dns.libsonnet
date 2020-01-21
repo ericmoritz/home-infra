@@ -37,45 +37,8 @@
       + service.mixin.spec.withType("LoadBalancer")
     , conf: configMap.new(c.name)
     + configMap.withData({
-      "home": |||
-        @ IN SOA @ admin.home. (
-                 2018110201  ;Serial
-                 3600        ;Refresh
-                 1800        ;Retry
-                 604800      ;Expire
-                 86400       ;Minimum TTL
-        )
-              IN NS @
-              IN A  192.168.1.3
-
-        * 3600 IN CNAME @
-        k8s-master IN CNAME @
-
-        ds IN A 192.168.1.2
-
-        majortom IN CNAME tom
-        tom IN A 192.168.1.12
-
-        captaineo IN CNAME eo
-        eo IN A 192.168.1.10
-
-      |||,
-      "Corefile": |||
-        home:53 {
-          file /etc/coredns/home
-        }
-        .:53 {
-          errors
-          health
-          ready
-          prometheus :9153
-          cache 30
-          loop
-          reload
-          loadbalance
-          forward . 8.8.8.8
-        }
-      |||
+      "home": importstr "home.zone",
+      "Corefile": importstr "Corefile",
     })
 
   },

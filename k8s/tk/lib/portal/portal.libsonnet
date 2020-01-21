@@ -1,4 +1,5 @@
 local k = import 'k.libsonnet';
+(import "storage/storage.libsonnet") +
 (import "ksonnet-util/kausal.libsonnet") +
 {
   _config+:: {
@@ -49,19 +50,12 @@ local k = import 'k.libsonnet';
       {
         name: c.name,
         persistentVolumeClaim: {
-           claimName: c.name,
+           claimName: "portal2",
         }
       },
     ])
     + $.util.emptyVolumeMount("logs", "/logs")
     , service: $.util.serviceFor(self.deployment)
-
-    , pvc:
-      pvc.new()
-      + pvc.mixin.metadata.withName(c.name)
-      + pvc.mixin.spec.withAccessModes("ReadWriteOnce")
-      + pvc.mixin.spec.resources.withRequests({"storage": "1Gi"})
-      + pvc.mixin.spec.withStorageClassName("slow")
 
     , ingress:
       ingress.new() +
@@ -75,5 +69,7 @@ local k = import 'k.libsonnet';
             httpIngressPath.mixin.backend.withServicePort('portal-http')
           ),
       ),
-  },
+  }
+  + $.homeInfra.nasPVPair("portal2")
+  ,
 }
