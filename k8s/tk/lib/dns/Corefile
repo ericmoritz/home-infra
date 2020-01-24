@@ -10,5 +10,7 @@ home:53 {
     loop
     reload
     loadbalance
-    forward . 8.8.8.8
+
+    # Send to the pi-hole
+    forward . 192.168.1.3:5353
 }
