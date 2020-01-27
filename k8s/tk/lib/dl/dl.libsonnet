@@ -5,6 +5,9 @@ local k = import 'k.libsonnet';
     dl: {
       name: 'dl',
       volumeName: 'media-repo',
+      radarr: {
+        hostname: 'radarr.home',
+      },
       sonarr: {
         hostname: 'sonarr.home',
       },
@@ -17,6 +20,7 @@ local k = import 'k.libsonnet';
     dl: {
       sonarr: 'linuxserver/sonarr:2.0.0.5337-ls93',
       sabnzbd: 'linuxserver/sabnzbd:latest',
+      radarr: 'linuxserver/radarr:3.0.0.2576-ls1',
     }
   },
 
@@ -37,6 +41,24 @@ local k = import 'k.libsonnet';
     deployment:
       deployment.new(c.name, replicas=1,
         containers=[
+
+          // Radarr container
+          container.new("radarr", $._images.dl.radarr)
+          + container.withEnvMap({
+            "PUID": "1032",
+            "PGID": "100",
+            "TZ": "America/New_York",
+          })
+          + container.withVolumeMounts([
+            {mountPath: "/config", subPath: "radarr-config", name: c.name},
+            {mountPath: "/movies", subPath: "movies", name: c.name},
+            {mountPath: "/downloads", subPath: "downloads", name: c.name},
+
+          ])
+          + container.withPorts([
+            containerPort.new("http", 7878),
+          ]),
+
           // Sonarr container
           container.new("sonarr", $._images.dl.sonarr)
           + container.withEnvMap({
@@ -55,6 +77,7 @@ local k = import 'k.libsonnet';
           ]),
 
           // Sabnzbd container
+          // Note, after the container boots, you well need to set the `host_whitelist` to the hostname and restart the Pod
           container.new("sabnzbd", $._images.dl.sabnzbd)
           + container.withEnvMap({
             "PUID": "1032",
@@ -80,6 +103,19 @@ local k = import 'k.libsonnet';
       },
     ])
     , service: $.util.serviceFor(self.deployment)
+
+    , radarrIngress:
+      ingress.new() +
+      ingress.mixin.metadata.withName("%s-radarr" % c.name) +
+      ingress.mixin.spec.withRules(
+          ingressRule.new() +
+          ingressRule.withHost(c.radarr.hostname) +
+          ingressRule.mixin.http.withPaths(
+            httpIngressPath.new() +
+            httpIngressPath.mixin.backend.withServiceName(c.name) +
+            httpIngressPath.mixin.backend.withServicePort('radarr-http')
+          ),
+      )
 
     , sonarrIngress:
       ingress.new() +
