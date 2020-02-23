@@ -37,7 +37,7 @@ local k = import 'k.libsonnet';
   local httpIngressPath = ingressRule.mixin.http.pathsType,
   local pvc = k.core.v1.persistentVolumeClaim,
 
-  portal: {
+  dl: {
     deployment:
       deployment.new(c.name, replicas=1,
         containers=[

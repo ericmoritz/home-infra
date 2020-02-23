@@ -6,7 +6,7 @@ local k = import 'k.libsonnet';
     portal: {
       name: 'portal',
       port: 80,
-      hostname: 'home',
+      hostname: 'portal.home',
     }
   },
   _images+:: {
@@ -68,7 +68,25 @@ local k = import 'k.libsonnet';
             httpIngressPath.mixin.backend.withServiceName(c.name) +
             httpIngressPath.mixin.backend.withServicePort('portal-http')
           ),
-      ),
+      )
+    // redirect from old http://home/ URL
+    , ingressRedirect:
+      ingress.new() +
+      ingress.mixin.metadata.withName("%s-redirect" % c.name) +
+      ingress.mixin.metadata.withAnnotations({
+        "traefik.ingress.kubernetes.io/redirect-permanent": "true",
+        "traefik.ingress.kubernetes.io/redirect-regex": "^http://home/(.*)",
+        "traefik.ingress.kubernetes.io/redirect-replacement": "http://portal.home/$1",
+      }) +
+      ingress.mixin.spec.withRules(
+          ingressRule.new() +
+          ingressRule.withHost("home") +
+          ingressRule.mixin.http.withPaths(
+            httpIngressPath.new() +
+            httpIngressPath.mixin.backend.withServiceName(c.name) +
+            httpIngressPath.mixin.backend.withServicePort('portal-http')
+          ),
+      )
   }
   + $.homeInfra.nasPVPair("portal2")
   ,
