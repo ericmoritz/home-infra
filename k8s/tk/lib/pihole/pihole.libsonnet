@@ -11,9 +11,7 @@ local k = import 'k.libsonnet';
     }
   },
   _images+:: {
-    pihole: {
-      heimdall: 'pihole/pihole:4.3.2-1'
-    }
+    pihole: 'pihole/pihole:v5.0',
   },
 
   local c = $._config.pihole,
@@ -31,7 +29,7 @@ local k = import 'k.libsonnet';
     deployment:
       deployment.new(c.name, replicas=1,
         containers=[
-          container.new(c.name, $._images.pihole.heimdall)
+          container.new(c.name, $._images.pihole)
           + container.withEnvMap({
             "TZ": "America/New_York",
             "WEB_PORT": "%d" % c.webPort,
