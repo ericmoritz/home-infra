@@ -18,9 +18,9 @@ local k = import 'k.libsonnet';
   },
   _images+:: {
     dl: {
-      sonarr: 'linuxserver/sonarr:2.0.0.5337-ls93',
-      sabnzbd: 'linuxserver/sabnzbd:latest',
-      radarr: 'linuxserver/radarr:3.0.0.2576-ls1',
+      sonarr: 'linuxserver/sonarr:3.0.6.1342-ls127',
+      sabnzbd: 'linuxserver/sabnzbd:3.4.2',
+      radarr: 'linuxserver/radarr:3.2.2.5080-ls119',
     }
   },
 
