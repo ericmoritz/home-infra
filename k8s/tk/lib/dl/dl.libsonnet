@@ -14,6 +14,9 @@ local k = import 'k.libsonnet';
       sabnzbd: {
         hostname: 'nzb.home',
       },
+      deluge: {
+        hostname: 'deluge.home',
+      },
     }
   },
   _images+:: {
@@ -21,6 +24,7 @@ local k = import 'k.libsonnet';
       sonarr: 'linuxserver/sonarr:3.0.6.1342-ls127',
       sabnzbd: 'linuxserver/sabnzbd:3.4.2',
       radarr: 'linuxserver/radarr:3.2.2.5080-ls119',
+      deluge: 'linuxserver/deluge:2.0.5',
     }
   },
 
@@ -28,6 +32,7 @@ local k = import 'k.libsonnet';
   local deployment = $.apps.v1.deployment,
   local container = $.core.v1.container,
   local service = $.core.v1.service,
+  local servicePort = service.mixin.spec.portsType,
   local containerPort = $.core.v1.containerPort,
   local configMap = $.core.v1.configMap,
   local volume = $.core.v1.volume,
@@ -93,6 +98,24 @@ local k = import 'k.libsonnet';
           + container.withPorts([
             containerPort.new("http", 8080),
           ]),
+          // Deluge container
+          // Note, after the container boots, you well need to set the `host_whitelist` to the hostname and restart the Pod
+          container.new("deluge", $._images.dl.deluge)
+          + container.withEnvMap({
+            "PUID": "1032",
+            "PGID": "100",
+            "TZ": "America/New_York",
+          })
+          + container.withVolumeMounts([
+            {mountPath: "/config", subPath: "deluge-config", name: c.name},
+            {mountPath: "/downloads", subPath: "downloads", name: c.name},
+            {mountPath: "/incomplete-downloads", subPath: "incomplete-downloads", name: c.name},
+
+          ])
+          + container.withPorts([
+            containerPort.new("http", 8112),
+            containerPort.new("bt", 31248),
+          ]),
         ])
     + deployment.mixin.spec.template.spec.withVolumes([
       {
@@ -103,7 +126,16 @@ local k = import 'k.libsonnet';
       },
     ])
     , service: $.util.serviceFor(self.deployment)
-
+    , delugeBTService:
+      service.new(
+        "%s-deluge-bt" % c.name,
+        {name: c.name},
+        [
+          servicePort.newNamed("deluge-bt-tcp", port=31248, targetPort='bt')
+          + servicePort.withNodePort(31248),
+        ],
+      )
+      + service.mixin.spec.withType("NodePort")
     , radarrIngress:
       ingress.new() +
       ingress.mixin.metadata.withName("%s-radarr" % c.name) +
@@ -139,6 +171,18 @@ local k = import 'k.libsonnet';
             httpIngressPath.new() +
             httpIngressPath.mixin.backend.withServiceName(c.name) +
             httpIngressPath.mixin.backend.withServicePort('sabnzbd-http')
+          ),
+      )
+    , delugeIngress:
+      ingress.new() +
+      ingress.mixin.metadata.withName("%s-deluge" % c.name) +
+      ingress.mixin.spec.withRules(
+          ingressRule.new() +
+          ingressRule.withHost(c.deluge.hostname) +
+          ingressRule.mixin.http.withPaths(
+            httpIngressPath.new() +
+            httpIngressPath.mixin.backend.withServiceName(c.name) +
+            httpIngressPath.mixin.backend.withServicePort('deluge-http')
           ),
       )
   }
