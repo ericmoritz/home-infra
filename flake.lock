@@ -1,0 +1,44 @@
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1667379994,
+        "narHash": "sha256-PFOg8WHqfKXsIGZtEC0aB+rl8SB1cXvA01ytIudnRh8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a704b9029586266f63807f64a6718f1a65b0f83b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "openapi2jsonschema": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1589615294,
+        "narHash": "sha256-2+mOLPamlmMu8u4e85Kddz2hoFR71eFscRpjAYquRiI=",
+        "owner": "instrumenta",
+        "repo": "openapi2jsonschema",
+        "rev": "d697cbff8a25f520e125e3a5f79cb4e9b972e8ce",
+        "type": "github"
+      },
+      "original": {
+        "owner": "instrumenta",
+        "repo": "openapi2jsonschema",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "openapi2jsonschema": "openapi2jsonschema"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

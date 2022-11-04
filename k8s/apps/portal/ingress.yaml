@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=../../../../schemas/k8s-v1.19.12/ingress-extensions-v1beta1.json
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: portal
+  namespace: default
+spec:
+  rules:
+  - host: portal.home
+    http:
+      paths:
+      - backend:
+          serviceName: portal
+          servicePort: portal-http

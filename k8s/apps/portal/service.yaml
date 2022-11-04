@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=../../../../schemas/k8s-v1.19.12/service-v1.json
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: portal
+  name: portal
+  namespace: default
+spec:
+  ports:
+  - name: portal-http
+    port: 80
+    targetPort: 80
+  selector:
+    name: portal
