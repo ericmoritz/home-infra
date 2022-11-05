@@ -9,7 +9,4 @@ spec:
   resources:
     requests:
       storage: 1000Gi
-  selector:
-    matchLabels:
-      name: media-repo
   storageClassName: nas
