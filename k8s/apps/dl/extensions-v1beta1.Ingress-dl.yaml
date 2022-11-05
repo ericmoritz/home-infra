@@ -1,0 +1,59 @@
+# yaml-language-server: $schema=../../../schemas/k8s-v1.19.12/ingress-extensions-v1beta1.json
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: dl-radarr
+  namespace: default
+spec:
+  rules:
+  - host: radarr.home
+    http:
+      paths:
+      - backend:
+          serviceName: dl
+          servicePort: radarr-http
+---
+# yaml-language-server: $schema=../../../schemas/k8s-v1.19.12/ingress-extensions-v1beta1.json
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: dl-deluge
+  namespace: default
+spec:
+  rules:
+  - host: deluge.home
+    http:
+      paths:
+      - backend:
+          serviceName: dl
+          servicePort: deluge-http
+---
+# yaml-language-server: $schema=../../../schemas/k8s-v1.19.12/ingress-extensions-v1beta1.json
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: dl-sonarr
+  namespace: default
+spec:
+  rules:
+  - host: sonarr.home
+    http:
+      paths:
+      - backend:
+          serviceName: dl
+          servicePort: sonarr-http
+---
+# yaml-language-server: $schema=../../../schemas/k8s-v1.19.12/ingress-extensions-v1beta1.json
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: dl-sabnzbd
+  namespace: default
+spec:
+  rules:
+  - host: nzb.home
+    http:
+      paths:
+      - backend:
+          serviceName: dl
+          servicePort: sabnzbd-http

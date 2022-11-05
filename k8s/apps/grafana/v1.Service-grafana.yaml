@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=../../../schemas/k8s-v1.19.12/service-v1.json
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: grafana
+  name: grafana
+  namespace: default
+spec:
+  ports:
+  - name: grafana-http
+    port: 3000
+    targetPort: 3000
+  selector:
+    name: grafana

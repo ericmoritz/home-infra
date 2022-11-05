@@ -1,0 +1,46 @@
+# yaml-language-server: $schema=../../../schemas/k8s-v1.19.12/deployment-apps-v1.json
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: default
+spec:
+  minReadySeconds: 10
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      name: grafana
+  template:
+    metadata:
+      labels:
+        name: grafana
+    spec:
+      containers:
+      - env:
+        - name: TZ
+          value: America/New_York
+        image: grafana/grafana:8.1.2
+        imagePullPolicy: IfNotPresent
+        name: grafana
+        ports:
+        - containerPort: 3000
+          name: http
+        volumeMounts:
+        - mountPath: /var/lib/grafana
+          name: grafana
+          subPath: data
+        - mountPath: /var/share/grafana
+          name: grafana
+          subPath: home
+        - mountPath: /var/log/grafana
+          name: grafana
+          subPath: log
+        - mountPath: /logs
+          name: logs
+      volumes:
+      - name: grafana
+        persistentVolumeClaim:
+          claimName: grafana
+      - emptyDir: {}
+        name: logs

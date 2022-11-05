@@ -1,0 +1,44 @@
+# yaml-language-server: $schema=../../../schemas/k8s-v1.19.12/deployment-apps-v1.json
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mqtt
+  namespace: default
+spec:
+  minReadySeconds: 10
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      name: mqtt
+  template:
+    metadata:
+      labels:
+        name: mqtt
+    spec:
+      containers:
+      - env:
+        - name: TZ
+          value: America/New_York
+        image: eclipse-mosquitto:2.0.11
+        imagePullPolicy: IfNotPresent
+        name: mqtt
+        ports:
+        - containerPort: 1883
+          name: mqtt
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /mosquitto/config
+          name: mqtt
+          subPath: config
+        - mountPath: /mosquitto/data
+          name: mqtt
+          subPath: data
+        - mountPath: /mosquitto/logs
+          name: logs
+      volumes:
+      - name: mqtt
+        persistentVolumeClaim:
+          claimName: mqtt
+      - emptyDir: {}
+        name: logs

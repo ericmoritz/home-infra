@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=../../../schemas/k8s-v1.19.12/persistentvolumeclaim-v1.json
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media-repo
+  namespace: default
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1000Gi
+  selector:
+    matchLabels:
+      name: media-repo
+  storageClassName: nas

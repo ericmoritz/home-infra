@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=../../../schemas/k8s-v1.19.12/ingress-extensions-v1beta1.json
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    traefik.ingress.kubernetes.io/redirect-permanent: "true"
+    traefik.ingress.kubernetes.io/redirect-regex: ^http://home/(.*)
+    traefik.ingress.kubernetes.io/redirect-replacement: http://portal.home/$1
+  name: portal-redirect
+  namespace: default
+spec:
+  rules:
+  - host: home
+    http:
+      paths:
+      - backend:
+          serviceName: portal
+          servicePort: portal-http

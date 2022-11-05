@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=../../../schemas/k8s-v1.19.12/service-v1.json
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: node-red
+  name: node-red
+  namespace: default
+spec:
+  ports:
+  - name: node-red-http
+    port: 1880
+    targetPort: 1880
+  selector:
+    name: node-red

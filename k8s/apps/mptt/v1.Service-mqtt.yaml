@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=../../../schemas/k8s-v1.19.12/service-v1.json
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: mqtt
+  name: mqtt
+  namespace: default
+spec:
+  ports:
+  - name: mqtt-mqtt
+    port: 1883
+    protocol: TCP
+    targetPort: 1883
+  selector:
+    name: mqtt
+  type: LoadBalancer

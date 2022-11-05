@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=../../../schemas/k8s-v1.19.12/persistentvolume-v1.json
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  labels:
+    name: grafana
+  name: grafana
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 1000Gi
+  mountOptions:
+  - hard
+  - nfsvers=4.1
+  nfs:
+    path: /volume1/k8s/grafana
+    server: 192.168.1.2
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nas
+  volumeMode: Filesystem

@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=../../../schemas/k8s-v1.19.12/ingress-extensions-v1beta1.json
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: node-red
+  namespace: default
+spec:
+  rules:
+  - host: node-red.home
+    http:
+      paths:
+      - backend:
+          serviceName: node-red
+          servicePort: node-red-http
