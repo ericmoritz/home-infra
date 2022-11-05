@@ -3,14 +3,10 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mqtt
-  namespace: default
 spec:
   accessModes:
   - ReadWriteOnce
   resources:
     requests:
       storage: 1000Gi
-  selector:
-    matchLabels:
-      name: mqtt
   storageClassName: nas
