@@ -1,9 +1,9 @@
 resources:
-  - apps-v1.Deployment-portal.yaml
-  - extensions-v1beta1.Ingress-portal.yaml
-  - v1.PersistentVolumeClaim-portal.yaml
-  - v1.PersistentVolume-portal.yaml
-  - v1.Service-portal.yaml
+  - deployment.yaml
+  - ingress.yaml
+  - pvc.yaml
+  - pv.yaml
+  - service.yaml
 namespace: default
 commonLabels:
   app: portal
