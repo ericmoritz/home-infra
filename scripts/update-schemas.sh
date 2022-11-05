@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -ex
-version="v1.19.12"
-out="schemas/k8s-$version"
+version="v1.25.3"
+out="schemas/k8s"
 
 rm -rf schemas
-mkdir -p "schemas/k8s-$version"
+mkdir -p "$out"
 ./.venv/bin/openapi2jsonschema -o "$out" --expanded --kubernetes --strict "https://raw.githubusercontent.com/kubernetes/kubernetes/${version}/api/openapi-spec/swagger.json"

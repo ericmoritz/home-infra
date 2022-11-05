@@ -1,5 +1,5 @@
-# yaml-language-server: $schema=../../../schemas/k8s-v1.19.12/ingress-extensions-v1beta1.json
-apiVersion: extensions/v1beta1
+# yaml-language-server: $schema=../../../schemas/k8s/ingress-networking-v1.json
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: node-red
@@ -9,6 +9,20 @@ spec:
   - host: node-red.home
     http:
       paths:
-      - backend:
-          serviceName: node-red
-          servicePort: node-red-http
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: node-red
+            port:
+              name: node-red-http
+  - host: node-red.home.ericcodes.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: node-red
+            port:
+              name: node-red-http

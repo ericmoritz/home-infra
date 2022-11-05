@@ -1,0 +1,9 @@
+resources:
+  - apps-v1.Deployment-node-red.yaml
+  - extensions-v1beta1.Ingress-node-red.yaml
+  - v1.PersistentVolumeClaim-node-red.yaml
+  - v1.PersistentVolume-node-red.yaml
+  - v1.Service-node-red.yaml
+namespace: default
+commonLabels:
+  app: node-red

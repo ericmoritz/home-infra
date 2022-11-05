@@ -1,0 +1,9 @@
+resources:
+  - apps-v1.Deployment-dl.yaml
+  - extensions-v1beta1.Ingress-dl.yaml
+  - v1.PersistentVolumeClaim-media-repo.yaml
+  - v1.PersistentVolume-media-repo.yaml
+  - v1.Service-dl.yaml
+namespace: default
+commonLabels:
+  app: dl

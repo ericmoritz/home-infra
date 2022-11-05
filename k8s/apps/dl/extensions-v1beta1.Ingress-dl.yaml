@@ -1,59 +1,87 @@
-# yaml-language-server: $schema=../../../schemas/k8s-v1.19.12/ingress-extensions-v1beta1.json
-apiVersion: extensions/v1beta1
+# yaml-language-server: $schema=../../../schemas/k8s/ingress-networking-v1.json
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: dl-radarr
-  namespace: default
+  name: dl
 spec:
   rules:
   - host: radarr.home
     http:
       paths:
-      - backend:
-          serviceName: dl
-          servicePort: radarr-http
----
-# yaml-language-server: $schema=../../../schemas/k8s-v1.19.12/ingress-extensions-v1beta1.json
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: dl-deluge
-  namespace: default
-spec:
-  rules:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dl
+            port:
+              name: radarr-http
   - host: deluge.home
     http:
       paths:
-      - backend:
-          serviceName: dl
-          servicePort: deluge-http
----
-# yaml-language-server: $schema=../../../schemas/k8s-v1.19.12/ingress-extensions-v1beta1.json
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: dl-sonarr
-  namespace: default
-spec:
-  rules:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dl
+            port:
+              name: deluge-http
   - host: sonarr.home
     http:
       paths:
-      - backend:
-          serviceName: dl
-          servicePort: sonarr-http
----
-# yaml-language-server: $schema=../../../schemas/k8s-v1.19.12/ingress-extensions-v1beta1.json
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: dl-sabnzbd
-  namespace: default
-spec:
-  rules:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dl
+            port:
+              name: sonarr-http
   - host: nzb.home
     http:
       paths:
-      - backend:
-          serviceName: dl
-          servicePort: sabnzbd-http
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dl
+            port:
+              name: sabnzbd-http
+  - host: radarr.home.ericcodes.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dl
+            port:
+              name: radarr-http
+  - host: deluge.home.ericcodes.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dl
+            port:
+              name: deluge-http
+  - host: sonarr.home.ericcodes.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dl
+            port:
+              name: sonarr-http
+  - host: nzb.home.ericcodes.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dl
+            port:
+              name: sabnzbd-http

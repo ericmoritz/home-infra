@@ -1,5 +1,5 @@
-# yaml-language-server: $schema=../../../schemas/k8s-v1.19.12/ingress-extensions-v1beta1.json
-apiVersion: extensions/v1beta1
+# yaml-language-server: $schema=../../../schemas/k8s/ingress-networking-v1.json
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: portal
@@ -9,6 +9,20 @@ spec:
   - host: portal.home
     http:
       paths:
-      - backend:
-          serviceName: portal
-          servicePort: portal-http
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: portal
+            port:
+              name: portal-http
+  - host: portal.home.ericcodes.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: portal
+            port:
+              name: portal-http

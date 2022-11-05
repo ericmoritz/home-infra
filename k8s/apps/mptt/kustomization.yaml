@@ -1,0 +1,8 @@
+resources:
+  - apps-v1.Deployment-mqtt.yaml
+  - v1.PersistentVolumeClaim-mqtt.yaml
+  - v1.PersistentVolume-mqtt.yaml
+  - v1.Service-mqtt.yaml
+namespace: default
+commonLabels:
+  app: mqtt
