@@ -17,5 +17,5 @@ spec:
     path: /volume1/k8s/node-red
     server: 192.168.1.2
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: nas
+  storageClassName: ""
   volumeMode: Filesystem

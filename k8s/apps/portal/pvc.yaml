@@ -13,4 +13,4 @@ spec:
   selector:
     matchLabels:
       name: portal
-  storageClassName: nas
+  storageClassName: ""

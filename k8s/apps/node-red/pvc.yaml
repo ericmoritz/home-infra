@@ -13,4 +13,4 @@ spec:
   selector:
     matchLabels:
       name: node-red
-  storageClassName: nas
+  storageClassName: ""
