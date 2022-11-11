@@ -24,7 +24,7 @@ spec:
           value: "1032"
         - name: TZ
           value: America/New_York
-        image: linuxserver/heimdall:2.2.2-ls70
+        image: linuxserver/heimdall:2.4.15
         imagePullPolicy: IfNotPresent
         name: portal
         ports:
