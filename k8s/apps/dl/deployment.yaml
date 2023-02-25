@@ -15,7 +15,7 @@ spec:
           value: "1032"
         - name: TZ
           value: America/New_York
-        image: linuxserver/radarr:3.2.2.5080-ls119
+        image: linuxserver/radarr:4.3.2
         imagePullPolicy: IfNotPresent
         name: radarr
         ports:
@@ -38,7 +38,7 @@ spec:
           value: "1032"
         - name: TZ
           value: America/New_York
-        image: linuxserver/sonarr:3.0.6.1342-ls127
+        image: linuxserver/sonarr:3.0.9
         imagePullPolicy: IfNotPresent
         name: sonarr
         ports:
@@ -61,7 +61,7 @@ spec:
           value: "1032"
         - name: TZ
           value: America/New_York
-        image: linuxserver/sabnzbd:3.4.2
+        image: linuxserver/sabnzbd:3.7.2
         imagePullPolicy: IfNotPresent
         name: sabnzbd
         ports:
@@ -104,5 +104,6 @@ spec:
           subPath: incomplete-downloads
       volumes:
       - name: dl
-        persistentVolumeClaim:
-          claimName: media-repo
+        hostPath:
+          path: /mnt/k8s/media-repo
+          type: Directory

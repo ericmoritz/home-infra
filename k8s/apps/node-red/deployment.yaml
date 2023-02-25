@@ -20,7 +20,7 @@ spec:
       - env:
         - name: TZ
           value: America/New_York
-        image: nodered/node-red:1.3.5-12-minimal-arm32v7
+        image: nodered/node-red:1.3.5-12-minimal
         imagePullPolicy: IfNotPresent
         name: node-red
         ports:
@@ -33,7 +33,8 @@ spec:
           name: logs
       volumes:
       - name: node-red
-        persistentVolumeClaim:
-          claimName: node-red
+        hostPath:
+          path: /volume1/k8s/node-red
+          type: Directory
       - emptyDir: {}
         name: logs

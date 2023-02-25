@@ -37,7 +37,8 @@ spec:
           name: logs
       volumes:
       - name: portal
-        persistentVolumeClaim:
-          claimName: portal
+        hostPath:
+          path: /mnt/k8s/portal2
+          type: Directory
       - emptyDir: {}
         name: logs

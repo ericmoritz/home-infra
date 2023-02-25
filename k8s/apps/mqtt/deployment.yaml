@@ -28,7 +28,8 @@ spec:
           name: logs
       volumes:
       - name: mqtt
-        persistentVolumeClaim:
-          claimName: mqtt
+        hostPath:
+          path: /mnt/k8s/mqtt
+          type: Directory
       - emptyDir: {}
         name: logs
