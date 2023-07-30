@@ -34,7 +34,7 @@ spec:
       volumes:
       - name: node-red
         hostPath:
-          path: /volume1/k8s/node-red
+          path: /mnt/k8s/node-red
           type: Directory
       - emptyDir: {}
         name: logs
