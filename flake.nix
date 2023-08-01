@@ -41,10 +41,41 @@
           {
             deployment.targetHost = "192.168.1.3";
 
+            # This is the user used by NFS
+            users.users.k8s = {
+              uid = 1032;
+              isSystemUser = true;
+              group = "users";
+            };
+
             imports = [
               ./nixos/thinkserver/configuration.nix
+              ./modules/heimdall.nix
+              ./modules/dl.nix
             ];
-            services.k3s.enable = true;
+
+            services.k3s.enable = false;
+
+            services.heimdallContainer = {
+              enable = true;
+              port = 8080;
+              uid = 1032;
+              gid = 100;
+              configPath = "/mnt/k8s/portal2";
+            };
+
+            services.dlServices.enable = false;
+
+            services.nginx = {
+              enable = true;
+              recommendedProxySettings = true;
+              virtualHosts."portal.home.ericcodes.io" = {
+                locations."/" = {
+                  proxyPass = "http://127.0.0.1:8080";
+                  proxyWebsockets = true; # needed if you need to use WebSocket
+                };
+              };
+            };
 
             networking.firewall = {
               allowedTCPPorts = [
