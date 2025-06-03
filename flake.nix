@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
     flake-utils = { url = "github:numtide/flake-utils"; };
   };
@@ -21,7 +21,8 @@
         };
       in {
         defaultPackage = pkgs.hello;
-        devShell = pkgs.mkShell { packages = with pkgs; [ nixopsUnstable ]; };
+        devShell =
+          pkgs.mkShell { packages = with pkgs; [ nixops_unstable_full ]; };
 
       }) // {
         nixopsConfigurations.default = {
@@ -72,7 +73,6 @@
               vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
               nfs-utils
               git
-              # libnatpmp
             ];
 
             fileSystems."/mnt/k8s" = {

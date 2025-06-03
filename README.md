@@ -5,3 +5,5 @@
 ```sh
 nixops ssh k3s-master
 ```
+
+## deploy to server
