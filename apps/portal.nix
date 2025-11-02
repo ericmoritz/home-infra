@@ -34,13 +34,13 @@
             {
               description = "Sonarr";
               icon = "hl-sonarr";
-              title = "Movies";
+              title = "TV Shows";
               url = "http://sonarr.home.ericcodes.io/";
             }
             {
               description = "Radarr";
               icon = "hl-radarr";
-              title = "TV Shows";
+              title = "Movies";
               url = "http://radarr.home.ericcodes.io/";
             }
             {
