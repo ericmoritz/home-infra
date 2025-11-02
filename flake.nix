@@ -5,6 +5,7 @@
     flake-utils = { url = "github:numtide/flake-utils"; };
   };
 
+
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
       let
@@ -36,10 +37,14 @@
 
             nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+            nixpkgs.config.allowUnfree = true; 
+
             imports = [
               ./nixos/thinkserver/configuration.nix
-              ./apps/home-assistant.nix
-              ./apps/k3s.nix
+              ./apps/portal.nix
+              ./apps/dl.nix
+              # ./apps/home-assistant.nix
+              # ./apps/k3s.nix
             ];
 
             # Enable cron service
@@ -50,6 +55,8 @@
             networking.firewall = {
               enable = true;
               allowedTCPPorts = [
+                80
+
                 22 # ssh
                 6443
                 10250
@@ -78,6 +85,13 @@
             fileSystems."/mnt/k8s" = {
               device = "192.168.1.2:/volume1/k8s";
               fsType = "nfs";
+            };
+
+
+            services.nginx = {
+              enable = true;
+              recommendedProxySettings = true;
+              # recommendedTlsSettings = true;
             };
 
           };
