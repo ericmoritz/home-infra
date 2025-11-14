@@ -43,7 +43,7 @@
               ./nixos/thinkserver/configuration.nix
               ./apps/portal.nix
               ./apps/dl.nix
-              # ./apps/home-assistant.nix
+              ./apps/home-assistant.nix
               # ./apps/k3s.nix
             ];
 

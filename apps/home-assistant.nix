@@ -6,6 +6,8 @@
   services.home-assistant = {
     enable = true;
 
+    openFirewall = true;
+
     extraComponents = [
       "default_config"
       "esphome"
@@ -15,6 +17,8 @@
     ];
     extraPackages = ps: with ps; [
       pywizlight
+      google-nest-sdm
+      grpcio
       securetar
       getmac
     ];
@@ -42,5 +46,4 @@
     "00 * * * *      root    rsync -a --delete /var/lib/hass/ /mnt/k8s/hass/"
   ];
 
-  networking.firewall.allowedTCPPorts = [ 8123 ];
 }
