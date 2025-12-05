@@ -3,10 +3,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
     flake-utils = { url = "github:numtide/flake-utils"; };
+    agenix.url = "github:ryantm/agenix";
   };
 
-
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { self, nixpkgs, flake-utils, agenix }:
     flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
       let
         pkgs = import nixpkgs {
@@ -20,10 +20,12 @@
 
           ];
         };
+        agenix-pkg = agenix.packages.x86_64-linux.default;
       in {
         defaultPackage = pkgs.hello;
-        devShell =
-          pkgs.mkShell { packages = with pkgs; [ nixops_unstable_full ]; };
+        devShell = pkgs.mkShell {
+          packages = with pkgs; [ nixops_unstable_full agenix-pkg ];
+        };
 
       }) // {
         nixopsConfigurations.default = {
@@ -37,13 +39,15 @@
 
             nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-            nixpkgs.config.allowUnfree = true; 
+            nixpkgs.config.allowUnfree = true;
 
             imports = [
               ./nixos/thinkserver/configuration.nix
+              agenix.nixosModules.default
               ./apps/portal.nix
               ./apps/dl.nix
               ./apps/home-assistant.nix
+              ./apps/wireguard.nix
               # ./apps/k3s.nix
             ];
 
@@ -86,7 +90,6 @@
               device = "192.168.1.2:/volume1/k8s";
               fsType = "nfs";
             };
-
 
             services.nginx = {
               enable = true;

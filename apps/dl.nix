@@ -14,8 +14,11 @@ let
       hostname = "radarr.home.ericcodes.io";
       port = toString config.services.radarr.settings.server.port;
     };
+    slskd = { hostname = "soulseek.home.ericcodes.io"; };
   };
 in {
+  age.secrets.slskd-env.file = ../secrets/slskd-env.age;
+
   users.users.dl = {
     uid = 1032;
     group = "users";
@@ -70,6 +73,22 @@ in {
     locations."/" = {
       proxyPass = "http://127.0.0.1:${apps.sabnzbd.port}/";
       proxyWebsockets = true;
+    };
+  };
+
+  ####
+  ## slskd
+  ####
+  services.slskd = {
+    enable = true;
+    user = "dl";
+    group = "users";
+    domain = apps.slskd.hostname;
+    environmentFile = config.age.secrets.slskd-env.path;
+    settings = {
+      shares.directories = [ "${media-repo}/music/eric-Music/" ];
+      directories.incomplete = "${media-repo}/incomplete-downloads";
+      directories.downloads = "${media-repo}/downloads";
     };
   };
 }
