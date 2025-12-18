@@ -1,4 +1,5 @@
-{config, pkgs, ...}: {
+{ config, pkgs, ... }:
+{
   environment.systemPackages = with pkgs; [
     ffmpeg
   ];
@@ -15,16 +16,18 @@
       "radio_browser"
       "ffmpeg"
     ];
-    extraPackages = ps: with ps; [
-      pywizlight
-      google-nest-sdm
-      grpcio
-      securetar
-      getmac
-    ];
+    extraPackages =
+      ps: with ps; [
+        pywizlight
+        google-nest-sdm
+        grpcio
+        securetar
+        getmac
+        aioharmony
+      ];
 
     config = {
-      default_config = {};
+      default_config = { };
       automation = [
         {
           alias = "Backup Home Assistant every night at 3 AM";
