@@ -1,4 +1,11 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
+
+  services.nginx.virtualHosts."${config.services.dashy.virtualHost.domain}" = {
+    forceSSL = true;
+    useACMEHost = "home.ericcodes.io";
+  };
+
   services.dashy = {
     enable = true;
     virtualHost = {
@@ -35,13 +42,13 @@
               description = "Sonarr";
               icon = "hl-sonarr";
               title = "TV Shows";
-              url = "http://sonarr.home.ericcodes.io/";
+              url = "https://sonarr.home.ericcodes.io/";
             }
             {
               description = "Radarr";
               icon = "hl-radarr";
               title = "Movies";
-              url = "http://radarr.home.ericcodes.io/";
+              url = "https://radarr.home.ericcodes.io/";
             }
             {
               # backgroundColor = "#0079ff";
@@ -49,7 +56,15 @@
               description = "Sabnzbd";
               icon = "hl-sabnzbd";
               title = "NZB";
-              url = "http://nzb.home.ericcodes.io/";
+              url = "https://nzb.home.ericcodes.io/";
+            }
+            {
+              # backgroundColor = "#0079ff";
+              # color = "#00ffc9";
+              description = "Transmission";
+              icon = "hl-transmission";
+              title = "Torrents";
+              url = "https://torrents.home.ericcodes.io/";
             }
           ];
           name = "Media";
@@ -93,18 +108,18 @@
           ];
           name = "Apps";
         }
-        
+
       ];
 
-      # Major Tom|http://majortom.home/
-      # Diskstation|http://192.168.1.2:5000/
-      # Books|http://192.168.1.2:8083/
-      # TV Shows|http://sonarr.home.ericcodes.io
-      # Movies|http://radarr.home.ericcodes.io
-      # SABnzbd|http://nzb.home.ericcodes.io
-      # Plex|http://192.168.1.2:32400/web/index.html
-      # Jellyfin|http://192.168.1.2:8096/
-      # Deluge|http://deluge.home.ericcodes.io/
+      # Major Tom|https://majortom.home/
+      # Diskstation|https://192.168.1.2:5000/
+      # Books|https://192.168.1.2:8083/
+      # TV Shows|https://sonarr.home.ericcodes.io
+      # Movies|https://radarr.home.ericcodes.io
+      # SABnzbd|https://nzb.home.ericcodes.io
+      # Plex|https://192.168.1.2:32400/web/index.html
+      # Jellyfin|https://192.168.1.2:8096/
+      # Deluge|https://deluge.home.ericcodes.io/
 
       # Rolling Fuck|https://books.rollingfuck.wtf/
 

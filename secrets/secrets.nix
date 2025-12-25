@@ -3,12 +3,17 @@ let
 
   eric-fw13 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFt4tgmV3TOhci/NP6oUixTgQ9HUplUS3uisunDfP8JX eric@eric-fw13";
 
-  users = [ eric-t470 eric-fw13 ]; 
+  users = [
+    eric-t470
+    eric-fw13
+  ];
 
   k3s-master = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB1aCWXXKSHr9mzSRpy/QePPRkgAkiyYmtX5G8R8HTOx";
 
-  systems = [k3s-master];
-in {
+  systems = [ k3s-master ];
+in
+{
   "wireshark-private-key.age".publicKeys = users ++ systems;
   "slskd-env.age".publicKeys = users ++ systems;
+  "acme-env.age".publicKeys = users ++ systems;
 }
