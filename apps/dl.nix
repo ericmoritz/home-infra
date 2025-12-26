@@ -138,4 +138,27 @@ in
       proxyWebsockets = true;
     };
   };
+
+  ####
+  ## TV clean-up script
+  ####
+  systemd.timers."tv-cleanup" = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      Unit = "tv-cleanup.service";
+    };
+  };
+  systemd.services."tv-cleanup" = {
+    script = ''
+      set -eu
+
+      # Delete all episodes older than 6 months
+      find ${media-repo}/tv -type f -ctime +185 -print -exec rm {} \;
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+    };
+  };
 }
