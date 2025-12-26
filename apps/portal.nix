@@ -51,6 +51,12 @@
               url = "https://radarr.home.ericcodes.io/";
             }
             {
+              description = "Roms";
+              icon = "hl-romm";
+              title = "Roms";
+              url = "https://roms.home.ericcodes.io/";
+            }
+            {
               # backgroundColor = "#0079ff";
               # color = "#00ffc9";
               description = "Sabnzbd";
@@ -59,8 +65,6 @@
               url = "https://nzb.home.ericcodes.io/";
             }
             {
-              # backgroundColor = "#0079ff";
-              # color = "#00ffc9";
               description = "Transmission";
               icon = "hl-transmission";
               title = "Torrents";

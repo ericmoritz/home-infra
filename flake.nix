@@ -65,10 +65,14 @@
               ./nixos/thinkserver/configuration.nix
               agenix.nixosModules.default
               ./apps/acme.nix
+              ./apps/postgresql.nix
+              ./apps/podman.nix
+
               ./apps/portal.nix
               ./apps/dl.nix
               ./apps/home-assistant.nix
               ./apps/wireguard.nix
+              ./apps/romm.nix
               # ./apps/k3s.nix
             ];
 
@@ -93,6 +97,8 @@
                 8772 # assetto web
                 8081 # assetto api
                 51820
+
+                5432
               ];
 
               allowedUDPPorts = [
@@ -108,6 +114,8 @@
               vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
               nfs-utils
               git
+              wget
+              screen
             ];
 
             fileSystems."/mnt/k8s" = {

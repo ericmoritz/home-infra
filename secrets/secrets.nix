@@ -16,4 +16,6 @@ in
   "wireshark-private-key.age".publicKeys = users ++ systems;
   "slskd-env.age".publicKeys = users ++ systems;
   "acme-env.age".publicKeys = users ++ systems;
+  "pgsql-init.sql.age".publicKeys = users ++ systems;
+  "romm-env.age".publicKeys = users ++ systems;
 }
