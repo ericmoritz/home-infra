@@ -97,8 +97,6 @@
                 8772 # assetto web
                 8081 # assetto api
                 51820
-
-                5432
               ];
 
               allowedUDPPorts = [
@@ -116,6 +114,8 @@
               git
               wget
               screen
+              unrar
+              unzip
             ];
 
             fileSystems."/mnt/k8s" = {

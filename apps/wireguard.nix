@@ -1,4 +1,5 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }:
+{
   age.secrets.wireshark-private-key.file = ../secrets/wireshark-private-key.age;
 
   networking.firewall = {
@@ -17,18 +18,24 @@
 
       listenPort = 51820;
 
-      peers = [{
+      peers = [
+        #US-NJ#236
+        {
 
-        # Public key of the server (not a file path).
-        publicKey = "umCaW98SBPbNjApBKCo0ReYhT2AJ0QfV/ZlyWnWmVUk=";
+          # Public key of the server (not a file path).
+          publicKey = "FSoutl7ON0IAx+mtpb3bBVScZWyh4G6ihA1jAVkggA0=";
 
-        # Forward all the traffic via VPN.
-        allowedIPs = [ "0.0.0.0/0" "::/0" ];
+          # Forward all the traffic via VPN.
+          allowedIPs = [
+            "0.0.0.0/0"
+            "::/0"
+          ];
 
-        # Set this to the server IP and port.
-        endpoint = "149.102.226.225:51820";
+          # Set this to the server IP and port.
+          endpoint = "151.243.141.4:51820";
 
-      }];
+        }
+      ];
     };
   };
 
