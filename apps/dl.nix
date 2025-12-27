@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   media-repo = "/mnt/k8s/media-repo";
   acmeHost = "home.ericcodes.io";
@@ -139,6 +144,62 @@ in
     };
   };
 
+  systemd.timers."transmission-update-port" = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "* * * * *";
+      Unit = "transmission-update-port.service";
+    };
+  };
+
+  systemd.services."transmission-update-port" = {
+    path = with pkgs; [
+      nixos-firewall-tool
+      iptables
+      gnused
+    ];
+
+    script = ''
+      set -eu
+      # Wait for Transmission to start
+      if ! ${pkgs.netcat}/bin/nc -z localhost ${toString config.services.transmission.settings.rpc-port}; then
+        echo "Transmission isn't running. skipping"
+        exit 0
+      fi
+
+      # Function to extract port number from natpmpc output
+      extract_port() {
+          local output="$1"
+          echo "$output" | sed -n 's/.*Mapped public port //p' | sed -n 's/\ .*//p'
+      }
+
+      # Run natpmpc commands and extract port numbers
+      tcp_output=$(${pkgs.libnatpmp}/bin/natpmpc -a 1 0 tcp 120 -g 10.2.0.1)
+
+      # Extract and print port numbers
+      tcp_port=$(extract_port "$tcp_output")
+
+      # Update the Transmission peer listening port
+      ${config.services.transmission.package}/bin/transmission-remote -p $tcp_port
+
+      # Add the port to the firewall
+      nixos-firewall-tool reset
+      nixos-firewall-tool open tcp $tcp_port
+
+      # Check if the update was successful
+      if [ $? -eq 0 ]; then
+          echo "Transmission peer listening port updated to $tcp_port"
+      else
+          echo "Failed to update Transmission peer listening port"
+      fi
+    '';
+
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+    };
+  };
+
   ####
   ## TV clean-up script
   ####
@@ -149,6 +210,7 @@ in
       Unit = "tv-cleanup.service";
     };
   };
+
   systemd.services."tv-cleanup" = {
     script = ''
       set -eu
