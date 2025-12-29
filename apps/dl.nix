@@ -147,7 +147,7 @@ in
   systemd.timers."transmission-update-port" = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
-      OnCalendar = "* * * * *";
+      OnCalendar = "minutely";
       Unit = "transmission-update-port.service";
     };
   };

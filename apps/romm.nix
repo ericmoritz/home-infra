@@ -31,7 +31,6 @@ in
       DB_NAME = "romm";
       DB_USER = "romm";
       HASHEOUS_API_ENABLED = "true";
-      LAUNCHBOX_API_ENABLED = "true";
       PLAYMATCH_API_ENABLED = "true";
       HLTB_API_ENABLED = "true";
       ENABLE_RESCAN_ON_FILESYSTEM_CHANGE = "true";

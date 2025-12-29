@@ -97,6 +97,7 @@
                 8772 # assetto web
                 8081 # assetto api
                 51820
+                5432 # pgsql
               ];
 
               allowedUDPPorts = [
