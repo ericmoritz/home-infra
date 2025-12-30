@@ -30,4 +30,9 @@
       }
     ];
   };
+
+  services.postgresqlBackup = {
+    enable = true;
+    databases = [ "romm" ];
+  };
 }

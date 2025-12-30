@@ -43,10 +43,4 @@
       ];
     };
   };
-
-  services.cron.systemCronJobs = [
-    # backup home-assistant hourly
-    "00 * * * *      root    rsync -a --delete /var/lib/hass/ /mnt/k8s/hass/"
-  ];
-
 }

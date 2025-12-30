@@ -64,16 +64,19 @@
             imports = [
               ./nixos/thinkserver/configuration.nix
               agenix.nixosModules.default
+
+              # system services
               ./apps/acme.nix
+              ./apps/backup.nix
               ./apps/postgresql.nix
               ./apps/podman.nix
+              ./apps/wireguard.nix
 
+              # services
               ./apps/portal.nix
               ./apps/dl.nix
               ./apps/home-assistant.nix
-              ./apps/wireguard.nix
               ./apps/romm.nix
-              # ./apps/k3s.nix
             ];
 
             # Enable cron service

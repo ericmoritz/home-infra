@@ -18,4 +18,5 @@ in
   "acme-env.age".publicKeys = users ++ systems;
   "pgsql-init.sql.age".publicKeys = users ++ systems;
   "romm-env.age".publicKeys = users ++ systems;
+  "restic-password.age".publicKeys = users ++ systems;
 }
