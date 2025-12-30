@@ -5,7 +5,7 @@ let
   port = "8002";
   acmeHost = "home.ericcodes.io";
   # version = "sha256:b909e95d1aab88db9817be700183fda8d24094b3e7c28355ddbd066e2659fc8f";
-  version = "4.5.0-beta.3";
+  version = "4.5.0";
   rip-myrient = pkgs.writeScriptBin "rip-myrient" ''
     set -eu
     ${pkgs.wget}/bin/wget -m -np -c -e robots=off -R "index.html*" $@
@@ -35,6 +35,8 @@ in
       HLTB_API_ENABLED = "true";
       ENABLE_RESCAN_ON_FILESYSTEM_CHANGE = "true";
       ENABLE_SCHEDULED_RESCAN = "true";
+      LAUNCHBOX_API_ENABLED = "true";
+      ENABLE_SCHEDULED_UPDATE_LAUNCHBOX_METADATA = "true";
     };
     environmentFiles = [
       config.age.secrets.romm-env.path
