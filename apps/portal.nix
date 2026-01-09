@@ -70,6 +70,12 @@
               title = "Torrents";
               url = "https://torrents.home.ericcodes.io/";
             }
+            {
+              description = "Home Assistant";
+              icon = "hl-home-assistant";
+              title = "Home Assistant";
+              url = "https://hass.home.ericcodes.io/";
+            }
           ];
           name = "Media";
         }

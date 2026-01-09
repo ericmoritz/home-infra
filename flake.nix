@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
 
     flake-utils = {
       url = "github:numtide/flake-utils";
@@ -30,6 +30,16 @@
           ];
         };
         agenix-pkg = agenix.packages.x86_64-linux.default;
+
+        mkShellApp =
+          body:
+          let
+            script = pkgs.writeShellScript "script.sh" body;
+          in
+          {
+            type = "app";
+            program = "${script}";
+          };
       in
       {
         defaultPackage = pkgs.hello;
@@ -40,100 +50,38 @@
           ];
         };
 
+        apps = {
+          # Deploy the configuration to server
+          deploy-as-root = mkShellApp ''
+            ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake .#k3s-master --target-host root@k3s-master
+          '';
+
+        };
       }
     )
     // {
-      nixopsConfigurations.default = {
-        inherit nixpkgs;
-        network.storage.legacy = {
-          databasefile = "~/.nixops/deployments.nixops";
+      nixosConfigurations = {
+        k3s-master = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./nixos/thinkserver/configuration.nix
+            ./nixos/k3s-master.nix
+            agenix.nixosModules.default
+
+            # system services
+            ./apps/acme.nix
+            ./apps/backup.nix
+            ./apps/postgresql.nix
+            ./apps/podman.nix
+            ./apps/wireguard.nix
+
+            # services
+            ./apps/portal.nix
+            ./apps/dl.nix
+            ./apps/home-assistant.nix
+            ./apps/romm.nix
+          ];
         };
-
-        k3s-master =
-          { config, pkgs, ... }:
-          {
-            deployment.targetHost = "192.168.1.3";
-
-            nix.settings.experimental-features = [
-              "nix-command"
-              "flakes"
-            ];
-
-            nixpkgs.config.allowUnfree = true;
-
-            imports = [
-              ./nixos/thinkserver/configuration.nix
-              agenix.nixosModules.default
-
-              # system services
-              ./apps/acme.nix
-              ./apps/backup.nix
-              ./apps/postgresql.nix
-              ./apps/podman.nix
-              ./apps/wireguard.nix
-
-              # services
-              ./apps/portal.nix
-              ./apps/dl.nix
-              ./apps/home-assistant.nix
-              ./apps/romm.nix
-            ];
-
-            # Enable cron service
-            services.cron = {
-              enable = true;
-            };
-
-            services.timesyncd.enable = true;
-
-            networking.firewall = {
-              enable = true;
-              allowedTCPPorts = [
-                80
-                443
-
-                22 # ssh
-                6443
-                10250
-                31248 # deluge
-                9600 # assetto server
-                8772 # assetto web
-                8081 # assetto api
-                51820
-                5432 # pgsql
-              ];
-
-              allowedUDPPorts = [
-                9600 # assetto server
-                38899 # wiz lights broadcast address
-                51820
-              ];
-            };
-
-            networking.hostName = "k3s-master";
-
-            environment.systemPackages = with pkgs; [
-              vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-              nfs-utils
-              git
-              wget
-              screen
-              unrar
-              unzip
-            ];
-
-            fileSystems."/mnt/k8s" = {
-              device = "192.168.1.2:/volume1/k8s";
-              fsType = "nfs";
-            };
-
-            services.nginx = {
-              enable = true;
-              recommendedProxySettings = true;
-              # recommendedTlsSettings = true;
-            };
-
-          };
       };
     };
 }

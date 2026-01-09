@@ -127,6 +127,7 @@ in
     group = "users";
     enable = true;
     home = "${media-repo}/transmission";
+    package = pkgs.transmission_4;
     settings.rpc-bind-address = "0.0.0.0";
     settings.rpc-whitelist-enabled = false;
     settings.rpc-host-whitelist = apps.transmission.hostname;
