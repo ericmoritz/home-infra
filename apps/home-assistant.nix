@@ -37,6 +37,7 @@ in
         securetar
         getmac
         aioharmony
+        thinqconnect
       ];
 
     config = {
