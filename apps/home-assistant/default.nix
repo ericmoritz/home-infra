@@ -29,6 +29,7 @@ in
       "radio_browser"
       "ffmpeg"
     ];
+
     extraPackages =
       ps: with ps; [
         pywizlight
@@ -38,6 +39,7 @@ in
         getmac
         aioharmony
         thinqconnect
+        paho-mqtt
       ];
 
     config = {
@@ -49,15 +51,40 @@ in
 
       automation = [
         {
-          alias = "Backup Home Assistant every night at 3 AM";
-          trigger = {
-            platform = "time";
-            at = "03:00:00";
-          };
-          action = {
-            alias = "Create backup now";
-            service = "backup.create";
-          };
+          alias = "Washer Done";
+          triggers = [
+            {
+              trigger = "state";
+              entity_id = "sensor.washer_current_status";
+              to = "end";
+            }
+          ];
+          actions = [
+            {
+              action = "notify.notify";
+              data = {
+                message = "Washer Done";
+              };
+            }
+          ];
+        }
+        {
+          alias = "Dryer Done";
+          triggers = [
+            {
+              trigger = "state";
+              entity_id = "sensor.dryer_current_status";
+              to = "end";
+            }
+          ];
+          actions = [
+            {
+              action = "notify.notify";
+              data = {
+                message = "Dryer Done";
+              };
+            }
+          ];
         }
       ];
     };

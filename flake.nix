@@ -47,6 +47,7 @@
           packages = with pkgs; [
             nixops_unstable_full
             agenix-pkg
+            mosquitto
           ];
         };
 
@@ -78,7 +79,8 @@
             # services
             ./apps/portal.nix
             ./apps/dl.nix
-            ./apps/home-assistant.nix
+            ./apps/home-assistant
+            ./apps/mqtt.nix
             ./apps/romm.nix
           ];
         };
