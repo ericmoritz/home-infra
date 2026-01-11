@@ -1,4 +1,8 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 let
   hostname = "hass.home.ericcodes.io";
   acmeHost = "home.ericcodes.io";
@@ -19,27 +23,52 @@ in
     ffmpeg
   ];
 
+  # needed for mdns and zeroconf
+  services.avahi.enable = true;
+
   services.home-assistant = {
     enable = true;
 
+    # See <https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/servers/home-assistant/component-packages.nix>
+    # for a list of component names
     extraComponents = [
+      "accuweather"
+      "analytics"
+      "backup"
+      "caldav"
+      "calendar"
+      "camera"
+      "cast"
       "default_config"
       "esphome"
-      "met"
-      "radio_browser"
       "ffmpeg"
+      "google"
+      "google_assistant"
+      "google_assistant_sdk"
+      "google_photos"
+      "google_translate"
+      "google_travel_time"
+      "here_travel_time"
+      "isal"
+      "jellyfin"
+      "lg_thinq"
+      "met"
+      "mqtt"
+      "mqtt_room"
+      "nest"
+      "radio_browser"
+      "remote_calendar"
+      "shopping_list"
+      "waze_travel_time"
+      "wiz"
     ];
 
     extraPackages =
       ps: with ps; [
-        pywizlight
-        google-nest-sdm
         grpcio
-        securetar
         getmac
         aioharmony
-        thinqconnect
-        paho-mqtt
+        zeroconf
       ];
 
     config = {
@@ -86,6 +115,7 @@ in
             }
           ];
         }
+        (import ./automations/update_eric_to_corsha_travel_time.nix)
       ];
     };
   };
