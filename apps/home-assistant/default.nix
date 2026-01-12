@@ -48,17 +48,26 @@ in
       "google_photos"
       "google_translate"
       "google_travel_time"
+      "habitica"
       "here_travel_time"
+      "html5"
       "isal"
       "jellyfin"
       "lg_thinq"
+      "local_todo"
       "met"
       "mqtt"
       "mqtt_room"
       "nest"
+      "radarr"
       "radio_browser"
       "remote_calendar"
+      "sabnzbd"
       "shopping_list"
+      "sonarr"
+      "todo"
+      "todoist"
+      "transmission"
       "waze_travel_time"
       "wiz"
     ];
@@ -78,45 +87,11 @@ in
         trusted_proxies = "127.0.0.1";
       };
 
-      automation = [
-        {
-          alias = "Washer Done";
-          triggers = [
-            {
-              trigger = "state";
-              entity_id = "sensor.washer_current_status";
-              to = "end";
-            }
-          ];
-          actions = [
-            {
-              action = "notify.notify";
-              data = {
-                message = "Washer Done";
-              };
-            }
-          ];
-        }
-        {
-          alias = "Dryer Done";
-          triggers = [
-            {
-              trigger = "state";
-              entity_id = "sensor.dryer_current_status";
-              to = "end";
-            }
-          ];
-          actions = [
-            {
-              action = "notify.notify";
-              data = {
-                message = "Dryer Done";
-              };
-            }
-          ];
-        }
-        (import ./automations/update_eric_to_corsha_travel_time.nix)
-      ];
+      template = import ./template_helpers;
+      script = import ./scripts;
+      automation = import ./automations;
+      notify = import ./notify;
+
     };
   };
 }
