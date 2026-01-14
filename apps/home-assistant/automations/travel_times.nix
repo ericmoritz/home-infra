@@ -5,7 +5,7 @@
     triggers = [
       {
         trigger = "time_pattern";
-        minutes = "/2";
+        minutes = "/5";
       }
     ];
     conditions = [
@@ -44,7 +44,7 @@
       {
         action = "homeassistant.update_entity";
         data = {
-          entity_id = "sensor.eric_to_corsha_travel_time";
+          entity_id = "sensor.eric_to_home_travel_time";
         };
       }
     ];
