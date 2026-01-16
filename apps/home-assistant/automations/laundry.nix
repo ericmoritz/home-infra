@@ -50,14 +50,14 @@ in
 [
   (notifyOnEnd {
     alias = "Washer Done";
-    entity_id = "sensor.washer_current_status";
+    entity_id = "sensor.basement_washer_current_status";
     message = "The washer has finished. Please move the clothes to the dryer";
     todo_item = "Move the laundry to the dryer";
   })
 
   (notifyOnEnd {
     alias = "Dryer Done";
-    entity_id = "sensor.dryer_current_status";
+    entity_id = "sensor.basement_dryer_current_status";
     message = "The dryer has finished. Please collect the clothes from the dryer";
     todo_item = "Collect the laundry";
   })
