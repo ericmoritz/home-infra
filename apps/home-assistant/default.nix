@@ -19,8 +19,13 @@ in
     };
   };
 
+  # Needed for Wiz discovery
+  networking.firewall.allowedTCPPorts = [ 38899 ];
+  networking.firewall.allowedUDPPorts = [ 38899 ];
+
   environment.systemPackages = with pkgs; [
     ffmpeg
+    python313Packages.pywizlight
   ];
 
   # needed for mdns and zeroconf

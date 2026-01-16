@@ -48,6 +48,7 @@
             nixops_unstable_full
             agenix-pkg
             mosquitto
+            python313Packages.pywizlight
           ];
         };
 
