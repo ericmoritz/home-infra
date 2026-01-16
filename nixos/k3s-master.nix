@@ -43,6 +43,7 @@
     screen
     unrar
     unzip
+    inetutils
   ];
 
   fileSystems."/mnt/k8s" = {
