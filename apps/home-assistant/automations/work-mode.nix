@@ -1,5 +1,5 @@
 let
-  basement_zone_id = "sensor.apollo_mtr_1_265c88_zone_1_all_target_count";
+  is_occupied_id = "binary_sensor.basement_desk_is_occupied";
 
   # Time to wait before considering the desk unoccupied.
   away_timeout = {
@@ -12,9 +12,10 @@ in
     mode = "single";
     triggers = [
       {
-        trigger = "numeric_state";
-        entity_id = [ basement_zone_id ];
-        above = 0;
+        trigger = "state";
+        entity_id = [ is_occupied_id ];
+        from = [ "off" ];
+        to = [ "on" ];
       }
     ];
 
@@ -29,9 +30,10 @@ in
     mode = "single";
     triggers = [
       {
-        trigger = "numeric_state";
-        entity_id = [ basement_zone_id ];
-        below = 1;
+        trigger = "state";
+        entity_id = [ is_occupied_id ];
+        from = [ "on" ];
+        to = [ "off" ];
         for = away_timeout;
       }
     ];

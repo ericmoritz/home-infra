@@ -87,6 +87,13 @@ in
       ];
 
     config = {
+      logger = {
+        # default = "info";
+        logs = {
+          # "homeassistant.components.webhook" = "debug";
+        };
+      };
+
       default_config = { };
       http = {
         use_x_forwarded_for = true;
