@@ -1,6 +1,6 @@
 [
   {
-    alias = "Update Eric to Corsha Travel Time";
+    alias = "Travel Times - Update Eric to Corsha";
     description = "Update Travel Time to Corsha during typical time";
     triggers = [
       {
@@ -26,7 +26,7 @@
     ];
   }
   {
-    alias = "Update Eric to Home Travel Time";
+    alias = "Travel Times - Update Eric to Home";
     triggers = [
       {
         trigger = "time_pattern";

@@ -1,1 +1,1 @@
-{ }
+{ } // (import ./work-mode.nix)
