@@ -6,6 +6,10 @@
       url = "github:numtide/flake-utils";
     };
     agenix.url = "github:ryantm/agenix";
+
+    nix-hytale-server = {
+      url = "github:osipog/nix-hytale-server";
+    };
   };
 
   outputs =
@@ -14,6 +18,7 @@
       nixpkgs,
       flake-utils,
       agenix,
+      nix-hytale-server,
     }:
     flake-utils.lib.eachSystem [ "x86_64-linux" ] (
       system:
@@ -70,6 +75,8 @@
             ./nixos/k3s-master.nix
             agenix.nixosModules.default
 
+            nix-hytale-server.nixosModules.hytale-server
+
             # system services
             ./apps/acme.nix
             ./apps/backup.nix
@@ -83,6 +90,7 @@
             ./apps/home-assistant
             ./apps/mqtt.nix
             ./apps/romm.nix
+            ./apps/hytale.nix
           ];
         };
       };

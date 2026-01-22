@@ -21,6 +21,29 @@
         "type": "github"
       }
     },
+    "blueprint": {
+      "inputs": {
+        "nixpkgs": [
+          "nix-hytale-server",
+          "nixpkgs"
+        ],
+        "systems": "systems_3"
+      },
+      "locked": {
+        "lastModified": 1768344359,
+        "narHash": "sha256-N9CKwK9YPholuZHyAHyE61KrTiA0hwrxsGlLKqrZYq4=",
+        "owner": "osipog",
+        "repo": "blueprint",
+        "rev": "6a803c8b39050b028dcc4e02a838448ec0ad9a68",
+        "type": "github"
+      },
+      "original": {
+        "owner": "osipog",
+        "ref": "feat/allow-nixpkgs-package-definitions",
+        "repo": "blueprint",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -82,6 +105,25 @@
         "type": "github"
       }
     },
+    "nix-hytale-server": {
+      "inputs": {
+        "blueprint": "blueprint",
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1768388013,
+        "narHash": "sha256-K2PRau278LalXiR33Nd0zDM6DsMcNa7rGAx1hvnCDsY=",
+        "owner": "osipog",
+        "repo": "nix-hytale-server",
+        "rev": "c1631815c457a7015ef07b5f1e92aabbd421d2db",
+        "type": "github"
+      },
+      "original": {
+        "owner": "osipog",
+        "repo": "nix-hytale-server",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1754028485,
@@ -99,6 +141,22 @@
       }
     },
     "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1768127708,
+        "narHash": "sha256-1Sm77VfZh3mU0F5OqKABNLWxOuDeHIlcFjsXeeiPazs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ffbc9f8cbaacfb331b6017d5a5abb21a492c9a38",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1767799921,
         "narHash": "sha256-r4GVX+FToWVE2My8VVZH4V0pTIpnu2ZE8/Z4uxGEMBE=",
@@ -118,7 +176,8 @@
       "inputs": {
         "agenix": "agenix",
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs_2"
+        "nix-hytale-server": "nix-hytale-server",
+        "nixpkgs": "nixpkgs_3"
       }
     },
     "systems": {
@@ -137,6 +196,21 @@
       }
     },
     "systems_2": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_3": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",

@@ -3,7 +3,7 @@ let
 
   # Time to wait before considering the desk unoccupied.
   away_timeout = {
-    seconds = 15;
+    seconds = 30;
   };
 in
 [
