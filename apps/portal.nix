@@ -36,7 +36,7 @@
               description = "Jellyfin";
               icon = "hl-jellyfin";
               title = "Jellyfin";
-              url = "http://192.168.1.2:8096/";
+              url = "https://jellyfin.home.ericcodes.io/";
             }
             {
               description = "Sonarr";

@@ -91,6 +91,7 @@
             ./apps/mqtt.nix
             ./apps/romm.nix
             ./apps/hytale.nix
+            ./apps/jellyfin.nix
           ];
         };
       };

@@ -51,6 +51,11 @@
     fsType = "nfs";
   };
 
+  fileSystems."/mnt/media" = {
+    device = "192.168.1.2:/volume1/Media";
+    fsType = "nfs";
+  };
+
   services.nginx = {
     enable = true;
     recommendedProxySettings = true;
