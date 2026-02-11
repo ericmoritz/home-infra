@@ -103,7 +103,7 @@ in
   ## slskd
   ####
   services.slskd = {
-    enable = true;
+    enable = false;
     user = "dl";
     group = "users";
     domain = apps.slskd.hostname;

@@ -1,0 +1,32 @@
+esphome:
+  name: bathroom-presence
+  friendly_name: bathroom presence
+
+esp32:
+  board: esp32-c3-devkitm-1
+  framework:
+    type: esp-idf
+
+# Enable logging
+logger:
+  level: INFO
+
+wifi:
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Bathroom-Presence"
+    password: "6iLEvBHAsVBk"
+
+  # Optional manual IP
+  # manual_ip:
+  #   static_ip: 192.168.1.20
+  #   gateway: 192.168.1.1
+  #   subnet: 255.255.255.0
+
+packages:
+  - !include ./common/ota.yaml
+  - !include ./common/wifi.yaml
+  - !include ./common/haas.yaml
+  - !include ./common/web.yaml
+  - !include ./peripherals/ld2450.yaml
+  - !include ./peripherals/esp32c3-blue-led.yaml

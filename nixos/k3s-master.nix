@@ -41,6 +41,7 @@
     git
     wget
     screen
+    tmux
     unrar
     unzip
     inetutils

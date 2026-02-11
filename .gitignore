@@ -3,3 +3,4 @@
 *.env
 .env
 /postgres-language-server.jsonc
+/apps/home-assistant/esphome/config/secrets.yaml

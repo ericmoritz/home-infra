@@ -7,6 +7,11 @@ let
   hostname = "hass.home.ericcodes.io";
   acmeHost = "home.ericcodes.io";
   server_port = config.services.home-assistant.config.http.server_port;
+  esphome = {
+    hostname = "esphome.home.ericcodes.io";
+    server_port = config.services.esphome.port;
+    home = "/var/lib/esphome";
+  };
 in
 {
   services.nginx.virtualHosts.${hostname} = {
@@ -27,6 +32,8 @@ in
   environment.systemPackages = with pkgs; [
     ffmpeg
     python313Packages.pywizlight
+    esptool
+    pkgs.esphome
   ];
 
   # needed for mdns and zeroconf
@@ -107,4 +114,5 @@ in
 
     };
   };
+
 }

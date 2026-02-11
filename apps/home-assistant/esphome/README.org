@@ -1,0 +1,13 @@
+* ESPHome files
+** ESP32 Super Mini LD2450 presence sensor
+*** BOM
+1. [[https://makerworld.com/en/models/1403473-hlk-ld2450-and-esp32-c3-supermini-case-remix][Case]]
+2. ESP32 Super Mini C3
+3. [[https://www.aliexpress.us/item/3256805683677199.html][LD2540 MMWave Sensor]]
+*** Wiring
+| ESP Pin   | LD2540 Pin | Color  |
+|-----------+------------+--------|
+| 5v        | 5V         | Red    |
+| GND       | GND        | Black  |
+| GPIO20/RX | TX         | White  |
+| GPIO21/TX | RX         | Yellow |

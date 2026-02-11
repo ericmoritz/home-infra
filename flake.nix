@@ -45,6 +45,12 @@
             type = "app";
             program = "${script}";
           };
+
+        esphome-dashboard = (
+          pkgs.writeScriptBin "esphome-dashboard" ''
+            ${pkgs.esphome}/bin/esphome dashboard apps/home-assistant/esphome/config
+          ''
+        );
       in
       {
         defaultPackage = pkgs.hello;
@@ -54,6 +60,8 @@
             agenix-pkg
             mosquitto
             python313Packages.pywizlight
+            esphome-dashboard
+            esphome
           ];
         };
 

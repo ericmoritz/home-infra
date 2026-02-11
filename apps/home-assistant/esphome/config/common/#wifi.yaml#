@@ -1,0 +1,17 @@
+wifi:
+
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # reboot_timeout: 15min
+  # power_save_mode: none
+  # enable_on_boot: True
+  # fast_connect: On
+  output_power: 8.5db
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Bathroom-Presence"
+    password: !secret wifi_ap_password
+
+captive_portal:

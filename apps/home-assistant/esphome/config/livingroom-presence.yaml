@@ -1,0 +1,19 @@
+esphome:
+  name: livingroom-presence
+  friendly_name: livingroom presence
+
+esp32:
+  board: esp32-c3-devkitm-1
+  framework:
+    type: esp-idf
+
+# Enable logging
+logger:
+
+packages:
+  - !include ./common/ota.yaml
+  - !include ./common/wifi.yaml
+  - !include ./common/haas.yaml
+  - !include ./peripherals/ld2450.yaml
+  - !include ./peripherals/btle.yaml
+  # - !include ./peripherals/esp32-rgb.yaml
