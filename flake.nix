@@ -68,7 +68,7 @@
         apps = {
           # Deploy the configuration to server
           deploy-as-root = mkShellApp ''
-            ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake .#k3s-master --target-host root@k3s-master
+            ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake .#apps --target-host root@apps
           '';
 
         };
@@ -76,11 +76,11 @@
     )
     // {
       nixosConfigurations = {
-        k3s-master = nixpkgs.lib.nixosSystem {
+        apps = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
             ./nixos/thinkserver/configuration.nix
-            ./nixos/k3s-master.nix
+            ./nixos/hosts/apps.nix
             agenix.nixosModules.default
 
             nix-hytale-server.nixosModules.hytale-server
@@ -90,7 +90,7 @@
             ./apps/backup.nix
             ./apps/postgresql.nix
             ./apps/podman.nix
-            ./apps/wireguard.nix
+            # ./apps/wireguard.nix
 
             # services
             ./apps/portal.nix

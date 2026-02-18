@@ -1,9 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
+
+  age.secrets.diskstation-smb-secrets.file = ../../secrets/diskstation-smb-secrets.age;
 
   nixpkgs.config.allowUnfree = true;
 
@@ -33,7 +35,8 @@
     ];
   };
 
-  networking.hostName = "k3s-master";
+  networking.hostName = "apps";
+  networking.domain = "home.ericcodes.io";
 
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
@@ -45,15 +48,16 @@
     unrar
     unzip
     inetutils
+    cifs-utils
   ];
 
   fileSystems."/mnt/k8s" = {
-    device = "192.168.1.2:/volume1/k8s";
+    device = "10.140.2.2:/volume1/k8s";
     fsType = "nfs";
   };
 
   fileSystems."/mnt/media" = {
-    device = "192.168.1.2:/volume1/Media";
+    device = "10.140.2.2:/volume1/Media";
     fsType = "nfs";
   };
 

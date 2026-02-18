@@ -5,5 +5,5 @@ in
 ++ (import ./laundry.nix)
 ++ entities.work-mode.automations
 ++ entities.parents-vanity-occupied.automations
-++ entities.parents-closet-occupied.automations
+# ++ entities.parents-closet-occupied.automations
 ++ (import ./webcam.nix)
