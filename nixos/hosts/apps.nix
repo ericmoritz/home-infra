@@ -5,8 +5,6 @@
     "flakes"
   ];
 
-  age.secrets.diskstation-smb-secrets.file = ../../secrets/diskstation-smb-secrets.age;
-
   nixpkgs.config.allowUnfree = true;
 
   services.timesyncd.enable = true;
