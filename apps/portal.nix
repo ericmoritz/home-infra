@@ -31,7 +31,14 @@
             customStyles = "border: 2px dashed red;";
             itemSize = "large";
           };
+          name = "Media";
           items = [
+            {
+              description = "Requests";
+              icon = "hl-seerr";
+              title = "Media Requests";
+              url = "https://requests.home.ericcodes.io/";
+            }
             {
               description = "Jellyfin";
               icon = "hl-jellyfin";
@@ -39,47 +46,13 @@
               url = "https://jellyfin.home.ericcodes.io/";
             }
             {
-              description = "Sonarr";
-              icon = "hl-sonarr";
-              title = "TV Shows";
-              url = "https://sonarr.home.ericcodes.io/";
-            }
-            {
-              description = "Radarr";
-              icon = "hl-radarr";
-              title = "Movies";
-              url = "https://radarr.home.ericcodes.io/";
-            }
-            {
               description = "Roms";
               icon = "hl-romm";
               title = "Roms";
               url = "https://roms.home.ericcodes.io/";
             }
-            {
-              # backgroundColor = "#0079ff";
-              # color = "#00ffc9";
-              description = "Sabnzbd";
-              icon = "hl-sabnzbd";
-              title = "NZB";
-              url = "https://nzb.home.ericcodes.io/";
-            }
-            {
-              description = "Transmission";
-              icon = "hl-transmission";
-              title = "Torrents";
-              url = "https://torrents.home.ericcodes.io/";
-            }
-            {
-              description = "Home Assistant";
-              icon = "hl-home-assistant";
-              title = "Home Assistant";
-              url = "https://hass.home.ericcodes.io/";
-            }
           ];
-          name = "Media";
         }
-
         {
           displayData = {
             collapsed = false;
@@ -87,7 +60,14 @@
             customStyles = "border: 2px dashed red;";
             itemSize = "large";
           };
+          name = "Apps";
           items = [
+            {
+              description = "Home Assistant";
+              icon = "hl-home-assistant";
+              title = "Home Assistant";
+              url = "https://hass.home.ericcodes.io/";
+            }
             {
               description = "Books";
               icon = "hl-calibreweb";
@@ -105,18 +85,49 @@
               url = "https://rss.apps.ericcodes.io/";
             }
             {
-              icon = "hl-irc";
-              title = "IRC";
-              url = "https://irc.apps.ericcodes.io/";
-            }
-            {
               description = "Coffee with Comrades Library";
               icon = "hl-calibreweb";
               title = "Rolling Fuck";
               url = "https://books.rollingfuck.wtf/";
             }
           ];
-          name = "Apps";
+        }
+        {
+          displayData = {
+            collapsed = true;
+            cols = 2;
+            customStyles = "border: 2px dashed red;";
+            itemSize = "large";
+          };
+          name = "Downloads";
+          items = [
+            {
+              description = "Sonarr";
+              icon = "hl-sonarr";
+              title = "TV Shows";
+              url = "https://sonarr.home.ericcodes.io/";
+            }
+            {
+              description = "Radarr";
+              icon = "hl-radarr";
+              title = "Movies";
+              url = "https://radarr.home.ericcodes.io/";
+            }
+            {
+              # backgroundColor = "#0079ff";
+              # color = "#00ffc9";
+              description = "Sabnzbd";
+              icon = "hl-sabnzbd";
+              title = "NZB";
+              url = "https://nzb.home.ericcodes.io/";
+            }
+            {
+              description = "Transmission";
+              icon = "hl-transmission";
+              title = "Torrents";
+              url = "https://torrents.home.ericcodes.io/";
+            }
+          ];
         }
 
       ];

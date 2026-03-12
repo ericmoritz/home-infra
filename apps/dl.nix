@@ -31,6 +31,12 @@ let
   };
 in
 {
+  imports = [
+    ./dl/seerr.nix
+  ];
+
+  services.seerr.enable = true;
+
   age.secrets.slskd-env.file = ../secrets/slskd-env.age;
 
   users.users.dl = {
