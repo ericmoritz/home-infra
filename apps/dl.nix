@@ -43,6 +43,10 @@ in
     uid = 1032;
     group = "users";
     isNormalUser = true;
+    extraGroups = [
+      "video"
+      "render"
+    ];
   };
 
   ####

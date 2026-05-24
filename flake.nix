@@ -80,6 +80,8 @@
           system = "x86_64-linux";
           modules = [
             ./nixos/thinkserver/configuration.nix
+            ./nixos/modules/nvidia.nix
+            ./nixos/modules/intel.nix
             ./nixos/hosts/apps.nix
             agenix.nixosModules.default
 
@@ -98,7 +100,7 @@
             ./apps/home-assistant
             ./apps/mqtt.nix
             ./apps/romm.nix
-            ./apps/hytale.nix
+            # ./apps/hytale.nix
             ./apps/jellyfin.nix
           ];
         };
