@@ -16,16 +16,16 @@ let
         }
       ];
       actions = [
-        {
-          action = "todo.add_item";
-          data = {
-            item = todo_item;
-            due_datetime = ''{{ today_at("23:59") | as_datetime }}'';
-          };
-          target = {
-            entity_id = "todo.family_tasks";
-          };
-        }
+        # {
+        #   action = "todo.add_item";
+        #   data = {
+        #     item = todo_item;
+        #     due_datetime = ''{{ today_at("23:59") | as_datetime }}'';
+        #   };
+        #   target = {
+        #     entity_id = "todo.family_tasks";
+        #   };
+        # }
         {
           action = "notify.laundry_notify_group";
           data = {
