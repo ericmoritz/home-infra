@@ -31,8 +31,6 @@ let
   };
 in
 {
-  services.seerr.enable = true;
-
   age.secrets.slskd-env.file = ../secrets/slskd-env.age;
 
   users.users.dl = {
@@ -233,4 +231,22 @@ in
       User = "root";
     };
   };
+
+  ####
+  ## Media Requests
+  ####
+  services.seerr = {
+    enable = true;
+  };
+
+  services.nginx.virtualHosts."requests.home.ericcodes.io" = {
+    forceSSL = true;
+    useACMEHost = acmeHost;
+
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:${toString config.services.seerr.port}/";
+      proxyWebsockets = true;
+    };
+  };
+
 }

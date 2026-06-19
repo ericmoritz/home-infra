@@ -67,6 +67,7 @@ in
       "isal"
       "jellyfin"
       "lg_thinq"
+      "litterrobot"
       "local_todo"
       "met"
       "mqtt"
