@@ -1,3 +1,4 @@
+{ ... }:
 let
   notifyOnEnd =
     {
@@ -47,18 +48,36 @@ let
       ];
     };
 in
-[
-  (notifyOnEnd {
-    alias = "Laundry - Washer Done";
-    entity_id = "sensor.basement_washer_current_status";
-    message = "The washer has finished. Please move the clothes to the dryer";
-    todo_item = "Move the laundry to the dryer";
-  })
+{
+  services.home-assistant.config = {
+    automation = [
+      (notifyOnEnd {
+        alias = "Laundry - Washer Done";
+        entity_id = "sensor.basement_washer_current_status";
+        message = "The washer has finished. Please move the clothes to the dryer";
+        todo_item = "Move the laundry to the dryer";
+      })
 
-  (notifyOnEnd {
-    alias = "Laundry - Dryer Done";
-    entity_id = "sensor.basement_dryer_current_status";
-    message = "The dryer has finished. Please collect the clothes from the dryer";
-    todo_item = "Collect the laundry";
-  })
-]
+      (notifyOnEnd {
+        alias = "Laundry - Dryer Done";
+        entity_id = "sensor.basement_dryer_current_status";
+        message = "The dryer has finished. Please collect the clothes from the dryer";
+        todo_item = "Collect the laundry";
+      })
+    ];
+
+    notify = [
+      {
+        platform = "group";
+        name = "Laundry notify group";
+        services = map (action: { inherit action; }) [
+          "mobile_app_eric_phone"
+          "mobile_app_bella_phone"
+          "mobile_app_riot_s_pixel_7"
+          "mobile_app_sm_n975u"
+          "mobile_app_sm_x510"
+        ];
+      }
+    ];
+  };
+}

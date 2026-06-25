@@ -46,6 +46,7 @@ in
     # for a list of component names
     extraComponents = [
       "accuweather"
+      "androidtv"
       "analytics"
       "backup"
       "caldav"
@@ -107,13 +108,16 @@ in
         use_x_forwarded_for = true;
         trusted_proxies = "127.0.0.1";
       };
-
-      template = import ./template_helpers;
-      script = import ./scripts;
-      automation = import ./automations;
-      notify = import ./notify;
-
     };
   };
 
+  imports = [
+    ./modules/commute.nix
+    ./modules/laundry.nix
+    # ./modules/parents-closet-occupied.nix
+    # ./modules/parents-vanity-occupied.nix
+    ./modules/travel-times.nix
+    ./modules/webcam.nix
+    ./modules/work-mode.nix
+  ];
 }
