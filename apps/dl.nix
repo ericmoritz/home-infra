@@ -33,6 +33,13 @@ in
 {
   age.secrets.slskd-env.file = ../secrets/slskd-env.age;
 
+  imports = [
+    (import ./audiobookshelf.nix {
+      inherit media-repo acmeHost;
+      hostname = "audiobooks.${acmeHost}";
+    })
+  ];
+
   users.users.dl = {
     uid = 1032;
     group = "users";

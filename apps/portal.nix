@@ -70,9 +70,15 @@
             }
             {
               description = "Books";
-              icon = "hl-calibreweb";
+              icon = "hl-calibre-web";
               title = "Personal Books";
               url = "https://books.apps.ericcodes.io/";
+            }
+            {
+              description = "Audiobooks";
+              icon = "hl-audiobookshelf";
+              title = "Audio Books";
+              url = "https://audiobooks.home.ericcodes.io/";
             }
             {
               icon = "favicon";
@@ -86,7 +92,7 @@
             }
             {
               description = "Coffee with Comrades Library";
-              icon = "hl-calibreweb";
+              icon = "hl-calibre-web";
               title = "Rolling Fuck";
               url = "https://books.rollingfuck.wtf/";
             }
