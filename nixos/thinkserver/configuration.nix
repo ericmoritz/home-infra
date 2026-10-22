@@ -16,4 +16,8 @@
   services.openssh.enable = true;
   system.stateVersion = "22.11"; # Did you read the comment?
 
+  security.pki.caCertificateBlacklist = [
+    "Comodo AAA Services root"
+    "emSign ECC Root CA - G3"
+  ];
 }

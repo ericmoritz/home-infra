@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-26.05";
 
     flake-utils = {
       url = "github:numtide/flake-utils";
@@ -80,7 +80,7 @@
           system = "x86_64-linux";
           modules = [
             ./nixos/thinkserver/configuration.nix
-            ./nixos/modules/nvidia.nix
+            # ./nixos/modules/nvidia.nix
             ./nixos/modules/intel.nix
             ./nixos/hosts/apps.nix
             agenix.nixosModules.default
